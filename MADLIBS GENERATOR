@@ -1,1 +1,22 @@
-# 
+# This is the simple code in python for Matlibs generator.
+# Simple Mad Libs Generator for Beginners
+
+# Print the story prompt
+print("Welcome to the Mad Libs Generator!")
+print("Please provide the following words to fill in the blanks:")
+
+# Take user input for different types of words
+noun1 = input("Enter a noun (e.g., dog, car, house): ")
+noun2 = input("Enter another noun: ")
+adjective1 = input("Enter an adjective (e.g., happy, blue, tall): ")
+verb1 = input("Enter a verb (action word, e.g., run, jump, swim): ")
+adverb1 = input("Enter an adverb (e.g., quickly, slowly, gracefully): ")
+
+# Generate the Mad Libs story with the user's words
+story = f"Once upon a time, there was a {adjective1} {noun1} who loved to {verb1} {adverb1}. "\
+        f"One day, it met a {noun2} and they became best friends forever."
+
+# Print the Mad Libs story
+print("\nHere is your Mad Libs story:")
+print(story)
+
