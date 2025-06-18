@@ -1,0 +1,26 @@
+# Function to calculate cross sum of a number
+def cross_sum(number):
+    # Convert the number to string to access each digit
+    number_str = str(number)
+
+    # Initialize sum to 0
+    total = 0
+
+    # Loop through each character (digit) in the string
+    for digit in number_str:
+        # Add the integer value of the digit to total
+        total += int(digit)
+
+    return total
+
+# Main code
+# Ask the user to enter a number
+user_input = input("Enter a number: ")
+
+# Check if the input is a valid positive number
+if user_input.isdigit():
+    number = int(user_input)
+    result = cross_sum(number)
+    print("The cross sum of", number, "is:", result)
+else:
+    print("Please enter a valid positive number.")
