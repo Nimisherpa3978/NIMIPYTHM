@@ -1,0 +1,24 @@
+# Code for Simple Counter App 
+
+# Initialize the counter
+counter = 0
+
+# Instructions for user
+print("Simple Counter App")
+print("Type '+' to increase, '-' to decrease, 'r' to reset, 'q' to quit.\n")
+
+while True:
+    print("Current Counter:", counter)
+    user_input = input("Enter command (+, -, r, q): ").strip()
+
+    if user_input == '+':
+        counter += 1
+    elif user_input == '-':
+        counter -= 1
+    elif user_input == 'r':
+        counter = 0
+    elif user_input == 'q':
+        print("Exiting Counter App. Final count:", counter)
+        break
+    else:
+        print("Invalid input. Please try again.")
