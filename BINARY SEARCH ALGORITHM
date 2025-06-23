@@ -1,0 +1,55 @@
+# Binary Search Algorithm with Explanation in simple way using python.
+
+def binary_search(arr, target):
+    """
+    Perform binary search on a sorted list with step-by-step explanation.
+    """
+    print("=== Binary Search Algorithm ===")
+    print(f"Input list: {arr}")
+    print(f"Target to find: {target}\n")
+
+    low = 0
+    high = len(arr) - 1
+    step = 1
+
+    while low <= high:
+        mid = (low + high) // 2
+
+        print(f"--- Step {step} ---")
+        print(f"Current range: indexes {low} to {high}")
+        print(f"Sublist being searched: {arr[low:high+1]}")
+        print(f"Middle index: {mid}, Middle value: {arr[mid]}")
+
+        if arr[mid] == target:
+            print(f"✅ Found {target} at index {mid}.\n")
+            return mid
+        elif arr[mid] < target:
+            print(f"🔼 {target} > {arr[mid]} → Move to the RIGHT half\n")
+            low = mid + 1
+        else:
+            print(f"🔽 {target} < {arr[mid]} → Move to the LEFT half\n")
+            high = mid - 1
+
+        step += 1
+
+    print(f"❌ Target {target} not found in the list.\n")
+    return -1
+
+# -------------------------------
+# Example usage
+# -------------------------------
+
+# Sorted list of elements
+arr = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+
+# Element to search for
+target = 14
+
+# Call the function
+result = binary_search(arr, target)
+
+# Final Result Output
+if result != -1:
+    print(f"🎯 Result: {target} found at index {result}")
+else:
+    print(f"🚫 Result: {target} not found in the list")
