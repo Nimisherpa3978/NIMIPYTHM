@@ -1,5 +1,4 @@
 # This is the python code for simple scientific calculator.
-You'll need the built-in math module.
 import math
 
 def add(x, y):
