@@ -1,0 +1,74 @@
+# This is the code for a simple Personal Expense Tracker in python.
+# We need to download the pandas library :("pip install pandas").
+import pandas as pd
+import os
+from datetime import datetime
+
+FILENAME = "expenses.csv"
+
+# Initialize CSV file if not exists
+if not os.path.exists(FILENAME):
+    df = pd.DataFrame(columns=["Date", "Category", "Amount", "Description"])
+    df.to_csv(FILENAME, index=False)
+
+def add_expense():
+    date = input("Enter date (YYYY-MM-DD) [leave blank for today]: ")
+    if not date:
+        date = datetime.today().strftime('%Y-%m-%d')
+    category = input("Enter category (e.g., Food, Transport, Bills): ")
+    amount = float(input("Enter amount: "))
+    description = input("Enter description (optional): ")
+
+    new_expense = pd.DataFrame([[date, category, amount, description]],
+                               columns=["Date", "Category", "Amount", "Description"])
+
+    df = pd.read_csv(FILENAME)
+    df = pd.concat([df, new_expense], ignore_index=True)
+    df.to_csv(FILENAME, index=False)
+    print("✅ Expense added successfully!")
+
+def view_expenses():
+    df = pd.read_csv(FILENAME)
+    if df.empty:
+        print("📂 No expenses recorded yet.")
+        return
+
+    print("\n📄 All Expenses:")
+    print(df.to_string(index=False))
+
+def summary():
+    df = pd.read_csv(FILENAME)
+    if df.empty:
+        print("📂 No expenses to summarize.")
+        return
+
+    total = df["Amount"].sum()
+    print(f"\n💵 Total Spent: ₹{total:.2f}")
+
+    print("\n📊 Spent by Category:")
+    print(df.groupby("Category")["Amount"].sum().sort_values(ascending=False))
+
+def main():
+    while True:
+        print("\n=== Personal Expense Tracker ===")
+        print("1. Add Expense")
+        print("2. View All Expenses")
+        print("3. View Summary")
+        print("4. Exit")
+
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == "1":
+            add_expense()
+        elif choice == "2":
+            view_expenses()
+        elif choice == "3":
+            summary()
+        elif choice == "4":
+            print("👋 Exiting... Goodbye!")
+            break
+        else:
+            print("❌ Invalid choice. Try again.")
+
+if __name__ == "__main__":
+    main()
