@@ -1,0 +1,30 @@
+# This is the code for a simple Site Connectivity Checker projects in Python.
+# We need to download the requests library  ("pip install requests") for the projects.
+import requests
+
+def check_website(url):
+    if not url.startswith(("http://", "https://")):
+        url = "http://" + url  # Default to HTTP if missing
+
+    try:
+        response = requests.get(url, timeout=5)
+        if response.status_code == 200:
+            print(f"✅ {url} is ONLINE (Status Code: 200)")
+        else:
+            print(f"⚠️ {url} returned Status Code: {response.status_code}")
+    except requests.ConnectionError:
+        print(f"❌ {url} is OFFLINE or not reachable.")
+    except requests.exceptions.MissingSchema:
+        print("❌ Invalid URL format.")
+    except requests.Timeout:
+        print(f"⏱️ Connection to {url} timed out.")
+    except Exception as e:
+        print(f"❌ An unexpected error occurred: {e}")
+
+def main():
+    print("\n🌐 Site Connectivity Checker")
+    site = input("Enter the website URL (e.g., google.com): ")
+    check_website(site)
+
+if __name__ == "__main__":
+    main()
