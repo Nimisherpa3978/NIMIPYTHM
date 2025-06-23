@@ -1,0 +1,101 @@
+# This is the python code for simple scientific calculator.
+You'll need the built-in math module.
+import math
+
+def add(x, y):
+    return x + y
+
+def subtract(x, y):
+    return x - y
+
+def multiply(x, y):
+    return x * y
+
+def divide(x, y):
+    if y == 0:
+        return "Error! Division by zero."
+    return x / y
+
+def power(x, y):
+    return math.pow(x, y)
+
+def square_root(x):
+    return math.sqrt(x)
+
+def logarithm(x, base=10):
+    return math.log(x, base)
+
+def sine(x):
+    return math.sin(math.radians(x))
+
+def cosine(x):
+    return math.cos(math.radians(x))
+
+def tangent(x):
+    return math.tan(math.radians(x))
+
+def display_menu():
+    print("\n----- Scientific Calculator -----")
+    print("1. Addition")
+    print("2. Subtraction")
+    print("3. Multiplication")
+    print("4. Division")
+    print("5. Power (x^y)")
+    print("6. Square Root")
+    print("7. Logarithm")
+    print("8. Sine")
+    print("9. Cosine")
+    print("10. Tangent")
+    print("0. Exit")
+
+def main():
+    while True:
+        display_menu()
+        choice = input("Choose an operation (0-10): ")
+
+        if choice == '0':
+            print("Exiting Calculator. Goodbye!")
+            break
+
+        if choice in ['1', '2', '3', '4', '5']:
+            x = float(input("Enter first number: "))
+            y = float(input("Enter second number: "))
+
+            if choice == '1':
+                print("Result:", add(x, y))
+            elif choice == '2':
+                print("Result:", subtract(x, y))
+            elif choice == '3':
+                print("Result:", multiply(x, y))
+            elif choice == '4':
+                print("Result:", divide(x, y))
+            elif choice == '5':
+                print("Result:", power(x, y))
+
+        elif choice == '6':
+            x = float(input("Enter number: "))
+            print("Result:", square_root(x))
+
+        elif choice == '7':
+            x = float(input("Enter number: "))
+            base = input("Enter base (press Enter for default base 10): ")
+            base = float(base) if base else 10
+            print("Result:", logarithm(x, base))
+
+        elif choice == '8':
+            x = float(input("Enter angle in degrees: "))
+            print("Result:", sine(x))
+
+        elif choice == '9':
+            x = float(input("Enter angle in degrees: "))
+            print("Result:", cosine(x))
+
+        elif choice == '10':
+            x = float(input("Enter angle in degrees: "))
+            print("Result:", tangent(x))
+
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
