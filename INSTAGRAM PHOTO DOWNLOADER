@@ -1,0 +1,19 @@
+# This is the simple code for the instagram photo downloader project in python.
+# We need to download ("pip instaloader") for this project.
+import instaloader
+
+def download_instagram_profile():
+    print("\n=== Instagram Profile Photo Downloader ===")
+    username = input("Enter the Instagram username (public): ")
+
+    loader = instaloader.Instaloader()
+
+    try:
+        # Downloads profile picture and posts
+        loader.download_profile(username, profile_pic_only=False)
+        print(f"\n✅ Download complete! Check the folder named '{username}'")
+    except Exception as e:
+        print(f"\n❌ Error: {e}")
+
+if __name__ == "__main__":
+    download_instagram_profile()
