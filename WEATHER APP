@@ -1,0 +1,42 @@
+# This is the code in python for a simple weather app project.
+# We need to download the requests library ("pip install requests").
+import requests
+
+def get_weather(city_name, api_key):
+    base_url = "https://api.openweathermap.org/data/2.5/weather"
+    params = {
+        "q": city_name,
+        "appid": api_key,
+        "units": "metric"  # Use "imperial" for Fahrenheit
+    }
+
+    try:
+        response = requests.get(base_url, params=params)
+        data = response.json()
+
+        if response.status_code == 200:
+            city = data['name']
+            country = data['sys']['country']
+            temp = data['main']['temp']
+            weather = data['weather'][0]['description']
+            humidity = data['main']['humidity']
+            wind_speed = data['wind']['speed']
+
+            print(f"\n🌤️ Weather in {city}, {country}:")
+            print(f"Temperature: {temp}°C")
+            print(f"Condition: {weather.capitalize()}")
+            print(f"Humidity: {humidity}%")
+            print(f"Wind Speed: {wind_speed} m/s")
+        else:
+            print(f"❌ Error: {data['message']}")
+    except Exception as e:
+        print(f"❌ An error occurred: {e}")
+
+def main():
+    print("🌍 Welcome to the Weather App!")
+    api_key = "YOUR_API_KEY_HERE"  # Replace with your OpenWeatherMap API key
+    city_name = input("Enter city name: ")
+    get_weather(city_name, api_key)
+
+if __name__ == "__main__":
+    main()
