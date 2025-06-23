@@ -1,0 +1,33 @@
+# This is the code for a  simple currency converter project in python.
+# This requires requests library for API calls: ("pip install requests").
+import requests
+
+def get_exchange_rate(base_currency, target_currency):
+    url = f"https://api.exchangerate-api.com/v4/latest/{base_currency.upper()}"
+    response = requests.get(url)
+    data = response.json()
+    
+    if "rates" not in data:
+        print("Invalid base currency or error in API.")
+        return None
+
+    rate = data["rates"].get(target_currency.upper())
+    if rate:
+        return rate
+    else:
+        print("Invalid target currency.")
+        return None
+
+def convert_currency():
+    print("\n=== Currency Converter ===")
+    base = input("Enter base currency (e.g., USD): ")
+    target = input("Enter target currency (e.g., INR): ")
+    amount = float(input(f"Enter amount in {base.upper()}: "))
+
+    rate = get_exchange_rate(base, target)
+    if rate:
+        converted = amount * rate
+        print(f"\n{amount:.2f} {base.upper()} = {converted:.2f} {target.upper()}")
+
+if __name__ == "__main__":
+    convert_currency()
