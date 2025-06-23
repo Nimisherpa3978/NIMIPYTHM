@@ -1,0 +1,42 @@
+# This is the code for Web Scraper project in python.
+# We need to download the required libraries:"pip install requests", "pip install beautifulsoup4"for this project.
+import requests
+from bs4 import BeautifulSoup
+
+def scrape_website(url):
+    try:
+        # Send HTTP GET request
+        response = requests.get(url)
+        response.raise_for_status()  # Raise error for bad status
+
+        # Parse the HTML content
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        # Extract and print the title
+        title = soup.title.string if soup.title else "No title found"
+        print(f"\n🔖 Page Title: {title}")
+
+        # Extract all hyperlinks
+        links = soup.find_all("a")
+        print(f"\n🔗 Found {len(links)} hyperlinks:")
+        for link in links[:10]:  # Show only first 10 for brevity
+            href = link.get("href")
+            text = link.text.strip()
+            print(f" - {text or 'No text'}: {href}")
+
+        # Extract all paragraphs
+        paragraphs = soup.find_all("p")
+        print(f"\n📝 Found {len(paragraphs)} paragraphs. First few:")
+        for para in paragraphs[:3]:  # Show first 3
+            print(f" - {para.text.strip()[:100]}...")
+
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Error fetching the site: {e}")
+
+def main():
+    print("🌐 Welcome to the Web Scraper!")
+    url = input("Enter a website URL (e.g., https://example.com): ")
+    scrape_website(url)
+
+if __name__ == "__main__":
+    main()
