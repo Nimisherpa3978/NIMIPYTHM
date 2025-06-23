@@ -1,0 +1,19 @@
+# This is athecode for a simple URL Shortener project in python.
+#   we need to download ("pip install pyshorteners") for this project.
+import pyshorteners
+
+def shorten_url():
+    print("\n🔗 Simple URL Shortener")
+    long_url = input("Enter the long URL: ")
+
+    # Create a shortener object using TinyURL
+    shortener = pyshorteners.Shortener()
+    
+    try:
+        short_url = shortener.tinyurl.short(long_url)
+        print(f"\n✅ Shortened URL: {short_url}")
+    except Exception as e:
+        print(f"\n❌ Error: {e}")
+
+if __name__ == "__main__":
+    shorten_url()
