@@ -1,0 +1,43 @@
+# This is the code for a simple website blocker in python.
+import time
+from datetime import datetime
+
+# Path to the hosts file
+hosts_path = "/etc/hosts"  # For MacOS/Linux
+# hosts_path = r"C:\Windows\System32\drivers\etc\hosts"  # For Windows (Uncomment this if on Windows)
+
+redirect_ip = "127.0.0.1"
+
+# List of websites to block
+websites_to_block = [
+    "www.facebook.com", 
+    "facebook.com",
+    "www.youtube.com", 
+    "youtube.com",
+    "www.instagram.com", 
+    "instagram.com"
+]
+
+# Set working hours
+start_hour = 9
+end_hour = 17
+
+while True:
+    current_time = datetime.now()
+    if start_hour <= current_time.hour < end_hour:
+        print("Working hours... Blocking websites.")
+        with open(hosts_path, "r+") as file:
+            content = file.read()
+            for website in websites_to_block:
+                if website not in content:
+                    file.write(f"{redirect_ip} {website}\n")
+    else:
+        print("Off hours... Unblocking websites.")
+        with open(hosts_path, "r+") as file:
+            content = file.readlines()
+            file.seek(0)
+            for line in content:
+                if not any(website in line for website in websites_to_block):
+                    file.write(line)
+            file.truncate()
+    time.sleep(60)  # Check every 60 seconds
