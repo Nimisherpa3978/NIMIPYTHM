@@ -1,0 +1,28 @@
+# This is the code for basic Alarm Clock in python .
+# THIS REQUIRES THE INSTALLATION ("pip install playsound.") 
+import datetime
+import time
+from playsound import playsound
+
+def get_alarm_time():
+    while True:
+        alarm_time = input("Enter the alarm time (HH:MM:SS in 24-hour format): ")
+        try:
+            valid_time = datetime.datetime.strptime(alarm_time, "%H:%M:%S").time()
+            return valid_time
+        except ValueError:
+            print("Invalid format! Please enter time as HH:MM:SS.")
+
+def start_alarm(alarm_time):
+    print(f"Alarm set for {alarm_time}")
+    while True:
+        current_time = datetime.datetime.now().time()
+        if current_time >= alarm_time:
+            print("⏰ Wake up! It's time!")
+            playsound("alarm.mp3")  # Make sure this file exists in the same directory
+            break
+        time.sleep(1)
+
+if __name__ == "__main__":
+    alarm_time = get_alarm_time()
+    start_alarm(alarm_time)
